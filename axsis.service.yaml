@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-10-19T14:55:27Z"
+  labels:
+    app: axsis
+  name: axsis
+  namespace: default
+  resourceVersion: "118718"
+  selfLink: /api/v1/namespaces/default/services/axsis
+  uid: b5018627-d3d9-4254-9c69-de223c79182f
+spec:
+  clusterIP: 10.152.183.60
+  clusterIPs:
+  - 10.152.183.60
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30493
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: axsis
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

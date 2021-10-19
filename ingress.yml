@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    nginx.ingress.kebernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: axsis.gui
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port:
+                  number: 80
+          - path: /axsis
+            pathType: Prefix
+            backend:
+              service:
+                name: axsis
+                port:
+                  number: 80
+          - path: /magix
+            pathType: Prefix
+            backend:
+              service:
+                name: magix
+                port:
+                  number: 8080

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2021-10-19T15:01:39Z"
+  generation: 1
+  labels:
+    app: axsis.magix
+  name: axsis.magix
+  namespace: default
+  resourceVersion: "122948"
+  selfLink: /apis/apps/v1/namespaces/default/deployments/axsis.magix
+  uid: 13fad24a-f67c-4745-a8fb-5296d3fd589a
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: axsis.magix
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: axsis.magix
+    spec:
+      containers:
+      - image: ingvord/axsis-magix:v1.0.1
+        imagePullPolicy: IfNotPresent
+        name: axsis-magix
+        env:
+          - name: MAGIX_HOST
+            value: http://magix:8080
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  conditions:
+  - lastTransitionTime: "2021-10-19T15:01:39Z"
+    lastUpdateTime: "2021-10-19T15:02:02Z"
+    message: ReplicaSet "axsis.magix-847f74d5b8" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2021-10-19T15:44:07Z"
+    lastUpdateTime: "2021-10-19T15:44:07Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  observedGeneration: 1
+  replicas: 1
+  unavailableReplicas: 1
+  updatedReplicas: 1
