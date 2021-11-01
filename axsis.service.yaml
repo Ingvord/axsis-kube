@@ -22,7 +22,7 @@ spec:
   - nodePort: 30493
     port: 80
     protocol: TCP
-    targetPort: 80
+    targetPort: 8080
   selector:
     app: axsis
   sessionAffinity: None
