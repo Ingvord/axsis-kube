@@ -6,8 +6,7 @@ metadata:
     nginx.ingress.kebernetes.io/rewrite-target: /$1
 spec:
   rules:
-    - host: axsis.gui
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
