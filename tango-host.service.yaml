@@ -19,7 +19,7 @@ spec:
   - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - nodePort: 30876
+  - nodePort: 10000
     port: 10000
     protocol: TCP
     targetPort: 10000
