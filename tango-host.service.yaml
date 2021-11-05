@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-11-05T14:22:30Z"
+  labels:
+    app: tango-host
+  name: tango-host
+  namespace: default
+  resourceVersion: "16339"
+  selfLink: /api/v1/namespaces/default/services/tango-host
+  uid: 90a6c401-c291-4ecb-8e2d-b754e63c4769
+spec:
+  clusterIP: 10.152.183.168
+  clusterIPs:
+  - 10.152.183.168
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30876
+    port: 10000
+    protocol: TCP
+    targetPort: 10000
+  selector:
+    app: tango-host
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
