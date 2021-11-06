@@ -47,21 +47,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  conditions:
-  - lastTransitionTime: "2021-11-05T23:27:33Z"
-    lastUpdateTime: "2021-11-05T23:28:37Z"
-    message: ReplicaSet "tango-server-5b8ffffc57" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  - lastTransitionTime: "2021-11-05T23:32:16Z"
-    lastUpdateTime: "2021-11-05T23:32:16Z"
-    message: Deployment does not have minimum availability.
-    reason: MinimumReplicasUnavailable
-    status: "False"
-    type: Available
-  observedGeneration: 1
-  replicas: 1
-  unavailableReplicas: 1
-  updatedReplicas: 1
