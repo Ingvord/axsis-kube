@@ -11,7 +11,9 @@ Create deployment/service etc: `kubectl create deployment NAME --image=FQIN e.g.
 
 Delete deployment/service etc: `kubectl delete deployment NAME`
 
-Expose deployment: `kubectl expose deployment NAME --port=PORT` 
+Expose deployment: `kubectl expose deployment NAME --port=PORT`
+
+Upgrade deployment: `kubectl set image deployment/NAME CONTAINER_NAME=NEW_IMAGE` e.g. ``
 
 Set env var for a pod: `kubectl set env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N`
 
