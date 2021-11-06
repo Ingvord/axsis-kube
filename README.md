@@ -3,9 +3,9 @@ Kubernetes files for AXSIS-XES GUI
 
 # tips and tricks
 
-> NOTE for Microk8s all commands must be prefixed with `microk8s.`
+> NOTE for Microk8s all commands must be prefixed with `microk8s.` e.g. `microk8s.kubectl`
 
-Check status: `kubectl get all`
+Check status: `kubectl get all` OR `kubectl describe RESOURCE e.g. pod/...` 
 
 Create deployment: `kubectl create deployment NAME --image=FQIN e.g. USER/REPOSITORY:TAG`
 
