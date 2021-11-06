@@ -7,7 +7,9 @@ Kubernetes files for AXSIS-XES GUI
 
 Check status: `kubectl get all` OR `kubectl describe RESOURCE e.g. pod/...` 
 
-Create deployment: `kubectl create deployment NAME --image=FQIN e.g. USER/REPOSITORY:TAG`
+Create deployment/service etc: `kubectl create deployment NAME --image=FQIN e.g. USER/REPOSITORY:TAG`
+
+Delete deployment/service etc: `kubectl delete deployment NAME`
 
 Expose deployment: `kubectl expose deployment NAME --port=PORT` 
 
