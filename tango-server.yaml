@@ -26,7 +26,7 @@ spec:
         app: tango-server
     spec:
       containers:
-      - image: ingvord/axsis-virtual-tango-host:AxsisTangoServer-0.5
+      - image: ingvord/axsis-virtual-tango-host:AxsisTangoServer-0.6
         imagePullPolicy: IfNotPresent
         name: axsis-virtual-tango-host
         env:
