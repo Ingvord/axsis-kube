@@ -42,22 +42,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: "2021-10-19T15:03:52Z"
-    lastUpdateTime: "2021-10-19T15:03:52Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2021-10-19T15:03:02Z"
-    lastUpdateTime: "2021-10-19T15:03:52Z"
-    message: ReplicaSet "magix-f7d4774b6" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  observedGeneration: 1
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1
