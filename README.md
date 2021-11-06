@@ -17,4 +17,4 @@ Upgrade deployment: `kubectl set image deployment/NAME CONTAINER_NAME=NEW_IMAGE`
 
 Set env var for a pod: `kubectl set env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N`
 
-
+Run jive in a docker: `docker run --net=host -e DISPLAY -e TANGO_HOST=localhost:10000 -v /tmp/.X11-unix tangocs/tango-jive:7.22`
