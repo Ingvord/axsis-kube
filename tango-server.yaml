@@ -36,9 +36,9 @@ spec:
         name: axsis-virtual-tango-host
         env:
           - name: MAGIX_HOST
-            value: magix:8080
+            value: localhost:32407
           - name: TANGO_HOST
-            value: tango-host:10000
+            value: localhost:30000
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
