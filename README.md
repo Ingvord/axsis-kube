@@ -13,7 +13,7 @@ Delete deployment/service etc: `kubectl delete deployment NAME`
 
 Expose deployment: `kubectl expose deployment NAME --port=PORT`
 
-Upgrade deployment: `kubectl set image deployment/NAME CONTAINER_NAME=NEW_IMAGE` e.g. ``
+Upgrade deployment: `kubectl set image deployment/NAME CONTAINER_NAME=NEW_IMAGE` e.g. `microk8s.kubectl set image deployment/tango-server axsis-virtual-tango-host=ingvord/axsis-virtual-tango-host:AxsisTangoServer-0.5`
 
 Set env var for a pod: `kubectl set env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N`
 
