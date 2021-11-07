@@ -3,15 +3,10 @@ kind: Deployment
 metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
-  creationTimestamp: "2021-10-19T15:01:39Z"
-  generation: 1
   labels:
     app: axsis.magix
   name: axsis.magix
   namespace: default
-  resourceVersion: "122948"
-  selfLink: /apis/apps/v1/namespaces/default/deployments/axsis.magix
-  uid: 13fad24a-f67c-4745-a8fb-5296d3fd589a
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -31,7 +26,7 @@ spec:
         app: axsis.magix
     spec:
       containers:
-      - image: ingvord/axsis-magix:v1.0.3
+      - image: ingvord/axsis-magix:v1.0.4
         imagePullPolicy: IfNotPresent
         name: axsis-magix
         env:
