@@ -32,6 +32,8 @@ spec:
         env:
           - name: MAGIX_HOST
             value: http://magix:8080
+          - name: MODE
+            value: simulation
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
