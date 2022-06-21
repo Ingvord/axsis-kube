@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana-deployment
+  labels:
+    app: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana:8.2.3
+        ports:
+        - containerPort: 5601
+        env:
+          - name: discovery.type
+            value: "single-node"
+        volumeMounts:
+        - mountPath: /usr/share/kibana/config
+          name: kibana-config
+        volumes:
+        - name: kibana-config
+          hostPath:
+            path: /var/axsis/kibana/config
+            type: Directory
