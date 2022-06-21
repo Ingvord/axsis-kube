@@ -4,6 +4,7 @@ Kubernetes files for AXSIS-XES GUI
 # before
 
 `mkdir -p /var/axsis/kibana/config`
+`mkdir -p /var/axsis/kibana/data`
 
 # tips and tricks
 
