@@ -1,4 +1,2 @@
 elasticsearch.hosts:
   http://localhost:32064
-elasticsearch.username: "elastic"
-elasticsearch.password: "NlWg2g_brC3P04I2rmx6"
