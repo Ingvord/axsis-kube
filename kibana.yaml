@@ -24,12 +24,12 @@ spec:
           name: kibana-config
         - mountPath: /usr/share/kibana/data
           name: kibana-data
-        volumes:
-        - name: kibana-config
-          hostPath:
-            path: /var/axsis/kibana/config
-            type: Directory
-        - name: kibana-data
-          hostPath:
-            path: /var/axsis/kibana/data
-            type: Directory
+      volumes:
+      - name: kibana-config
+        hostPath:
+          path: /var/axsis/kibana/config
+          type: Directory
+      - name: kibana-data
+        hostPath:
+          path: /var/axsis/kibana/data
+          type: Directory
