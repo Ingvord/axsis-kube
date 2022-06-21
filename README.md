@@ -1,6 +1,10 @@
 # axsis-kube
 Kubernetes files for AXSIS-XES GUI
 
+# before
+
+`mkdir -p /var/axsis/kibana/config`
+
 # tips and tricks
 
 > NOTE for Microk8s all commands must be prefixed with `microk8s.` e.g. `microk8s.kubectl`
