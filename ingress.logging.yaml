@@ -24,6 +24,7 @@ spec:
             port: 
               number: 5601
         path: /
+        pathType: Exact
   - host: elasticsearch.my
     http:
       paths:
@@ -33,3 +34,4 @@ spec:
             port: 
               number: 9200
         path: /
+        pathType: Exact
