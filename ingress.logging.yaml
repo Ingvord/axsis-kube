@@ -21,7 +21,8 @@ spec:
       - backend:
           service:
             name: kibana-deployment
-            port: 5601
+            port: 
+              number: 5601
         path: /
   - host: elasticsearch.my
     http:
@@ -29,5 +30,6 @@ spec:
       - backend:
           service:
             name: elasticsearch-deployment
-            port: 9200
+            port: 
+              number: 9200
         path: /
