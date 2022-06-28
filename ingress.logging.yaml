@@ -9,29 +9,22 @@ metadata:
   name: ingress-logging
   namespace: kube-system
 spec:
-  tls:
-  - hosts:
-    - kibana.my
-    - elasticsearch.my
-    secretName: example-tls
   rules:
-  - host: kibana.my
-    http:
+  - http:
       paths:
       - backend:
           service:
             name: kibana-deployment
             port: 
               number: 5601
-        path: /
+        path: /kibana
         pathType: Exact
-  - host: elasticsearch.my
-    http:
+  - http:
       paths:
       - backend:
           service:
             name: elasticsearch-deployment
             port: 
               number: 9200
-        path: /
+        path: /elastic
         pathType: Exact
