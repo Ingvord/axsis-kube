@@ -29,17 +29,3 @@ spec:
                 name: magix
                 port:
                   number: 8080
-    - host: kibana.my
-      http:
-        paths:
-        - backend:
-            serviceName: kibana-deployment
-            servicePort: 5601
-          path: /
-    - host: elasticsearch.my
-      http:
-        paths:
-        - backend:
-            serviceName: elasticsearch-deployment
-            servicePort: 9200
-          path: /
