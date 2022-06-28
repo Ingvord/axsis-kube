@@ -29,3 +29,17 @@ spec:
                 name: magix
                 port:
                   number: 8080
+    - host: kibana.my
+      http:
+        paths:
+        - backend:
+            serviceName: kibana-logging
+            servicePort: 5601
+          path: /
+    - host: elasticsearch.my
+      http:
+        paths:
+        - backend:
+            serviceName: elasticsearch-logging
+            servicePort: 9200
+          path: /
