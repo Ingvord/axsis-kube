@@ -33,13 +33,13 @@ spec:
       http:
         paths:
         - backend:
-            serviceName: kibana-logging
+            serviceName: kibana-deployment
             servicePort: 5601
           path: /
     - host: elasticsearch.my
       http:
         paths:
         - backend:
-            serviceName: elasticsearch-logging
+            serviceName: elasticsearch-deployment
             servicePort: 9200
           path: /
