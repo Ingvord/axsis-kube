@@ -39,9 +39,8 @@ spec:
           - path: /elastic
             pathType: Exact
             backend:
-            service:
-              name: elasticsearch-logging
-              port: 
-                number: 9200       
-46
+              service:
+                name: elasticsearch-logging
+                port: 
+                  number: 9200
         
