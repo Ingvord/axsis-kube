@@ -29,34 +29,19 @@ spec:
                 name: magix
                 port:
                   number: 8080
----                  
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    ingress.kubernetes.io/auth-realm: Authentication Required
-    ingress.kubernetes.io/auth-secret: internal-services-auth
-    ingress.kubernetes.io/auth-type: basic
-    kubernetes.io/ingress.allow-http: "false"
-  name: ingress-logging
-  namespace: kube-system
-spec:
-  rules:
-  - http:
-      paths:
-      - backend:
-          service:
-            name: kibana-logging
-            port: 
-              number: 5601
-        path: /kibana
-        pathType: Exact
-  - http:
-      paths:
-      - backend:
-          service:
-            name: elasticsearch-logging
-            port: 
-              number: 9200
-        path: /elastic
-        pathType: Exact
+          - path: /kibana 
+            pathType: Exact
+            backend:
+            service:
+              name: kibana-logging
+              port: 
+                number: 5601
+          - path: /elastic
+            pathType: Exact
+            backend:
+            service:
+              name: elasticsearch-logging
+              port: 
+                number: 9200       
+46
+        
