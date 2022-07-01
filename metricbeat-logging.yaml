@@ -2,17 +2,57 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: metricbeat-deployment-config
+  name: metricbeat-daemonset-config
   namespace: kube-system
   labels:
     k8s-app: metricbeat
 data:
   metricbeat.yml: |-
     metricbeat.config.modules:
-      # Mounted `metricbeat-deployment-modules` configmap:
+      # Mounted `metricbeat-daemonset-modules` configmap:
       path: ${path.config}/modules.d/*.yml
       # Reload module configs as they change:
       reload.enabled: false
+
+    metricbeat.autodiscover:
+      providers:
+        - type: kubernetes
+          scope: cluster
+          node: ${NODE_NAME}
+          unique: true
+          templates:
+            - config:
+                - module: kubernetes
+                  hosts: ["kube-state-metrics:8080"]
+                  period: 10s
+                  add_metadata: true
+                  metricsets:
+                    - state_node
+                    - state_deployment
+                    - state_daemonset
+                    - state_replicaset
+                    - state_pod
+                    - state_container
+                    - state_cronjob
+                    - state_resourcequota
+                    - state_statefulset
+                    - state_service
+                - module: kubernetes
+                  metricsets:
+                    - apiserver
+                  hosts: ["https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"]
+                  bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+                  ssl.certificate_authorities:
+                    - /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                  period: 30s
+                # Uncomment this to get k8s events:
+                #- module: kubernetes
+                #  metricsets:
+                #    - event
+        # To enable hints based autodiscover uncomment this:
+        - type: kubernetes
+          node: ${NODE_NAME}
+          hints.enabled: true
 
     processors:
       - add_cloud_metadata:
@@ -23,14 +63,14 @@ data:
     setup.dashboards.enabled: true
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST:elasticsearch-logging}:${ELASTICSEARCH_PORT:9200}']
+      hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: metricbeat-deployment-modules
+  name: metricbeat-daemonset-modules
   namespace: kube-system
   labels:
     k8s-app: metricbeat
@@ -40,10 +80,60 @@ data:
       metricsets: ["remote_write"]
       host: "0.0.0.0"
       port: "9201"
+  system.yml: |-
+    - module: system
+      period: 10s
+      metricsets:
+        - cpu
+        - load
+        - memory
+        - network
+        - process
+        - process_summary
+        #- core
+        #- diskio
+        #- socket
+      processes: ['.*']
+      process.include_top_n:
+        by_cpu: 5      # include top 5 processes by CPU
+        by_memory: 5   # include top 5 processes by memory
+
+    - module: system
+      period: 1m
+      metricsets:
+        - filesystem
+        - fsstat
+      processors:
+      - drop_event.when.regexp:
+          system.filesystem.mount_point: '^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)'
+  kubernetes.yml: |-
+    - module: kubernetes
+      metricsets:
+        - node
+        - system
+        - pod
+        - container
+        - volume
+      period: 10s
+      host: ${NODE_NAME}
+      hosts: ["https://${NODE_NAME}:10250"]
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      ssl.verification_mode: "none"
+      # If there is a CA bundle that contains the issuer of the certificate used in the Kubelet API,
+      # remove ssl.verification_mode entry and use the CA, for instance:
+      #ssl.certificate_authorities:
+        #- /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+    # Currently `proxy` metricset is not supported on Openshift, comment out section
+    - module: kubernetes
+      metricsets:
+        - proxy
+      period: 10s
+      host: ${NODE_NAME}
+      hosts: ["localhost:10249"]
 ---
-# Deploy singleton instance in the whole cluster for some unique data sources, like kube-state-metrics
+# Deploy a Metricbeat instance per node for node metrics retrieval
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: metricbeat
   namespace: kube-system
@@ -64,22 +154,21 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: metricbeat
-        image: docker.elastic.co/beats/metricbeat:7.10.2
-        ports:
-          - containerPort: 9201
+        image: docker.elastic.co/beats/metricbeat:7.13.0
         args: [
           "-c", "/etc/metricbeat.yml",
           "-e",
+          "-system.hostfs=/hostfs",
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch-logging
+          value: elasticsearch
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ELASTICSEARCH_USERNAME
           value: elastic
         - name: ELASTICSEARCH_PASSWORD
-          value: NlWg2g_brC3P04I2rmx6
+          value: changeme
         - name: ELASTIC_CLOUD_ID
           value:
         - name: ELASTIC_CLOUD_AUTH
@@ -108,43 +197,32 @@ spec:
         - name: modules
           mountPath: /usr/share/metricbeat/modules.d
           readOnly: true
-        #- name: proc
-        #  mountPath: /hostfs/proc
-        #  readOnly: true
-        #- name: cgroup
-        #  mountPath: /hostfs/sys/fs/cgroup
-        #  readOnly: true
+        - name: proc
+          mountPath: /hostfs/proc
+          readOnly: true
+        - name: cgroup
+          mountPath: /hostfs/sys/fs/cgroup
+          readOnly: true
       volumes:
-      #- name: proc
-      #  hostPath:
-      #    path: /proc
-      #- name: cgroup
-      #  hostPath:
-      #    path: /sys/fs/cgroup
+      - name: proc
+        hostPath:
+          path: /proc
+      - name: cgroup
+        hostPath:
+          path: /sys/fs/cgroup
       - name: config
         configMap:
           defaultMode: 0640
-          name: metricbeat-deployment-config
+          name: metricbeat-daemonset-config
       - name: modules
         configMap:
           defaultMode: 0640
-          name: metricbeat-deployment-modules
+          name: metricbeat-daemonset-modules
       - name: data
         hostPath:
           # When metricbeat runs as non-root user, this directory needs to be writable by group (g+w)
           path: /var/lib/metricbeat-data
           type: DirectoryOrCreate
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: metricbeat-svc
-  namespace: kube-system
-spec:
-  ports:
-  - port: 9201
-  selector:
-    k8s-app: metricbeat
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -172,9 +250,13 @@ rules:
   - namespaces
   - events
   - pods
-  - secrets
   - services
   verbs: ["get", "list", "watch"]
+# Enable this rule only if planing to use Kubernetes keystore
+#- apiGroups: [""]
+#  resources:
+#  - secrets
+#  verbs: ["get"]
 - apiGroups: ["extensions"]
   resources:
   - replicasets
