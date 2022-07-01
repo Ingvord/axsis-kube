@@ -26,7 +26,7 @@ spec:
         app: axsis.magix
     spec:
       containers:
-      - image: ingvord/axsis-magix:v1.0.8
+      - image: ingvord/axsis-magix:v1.0.9
         imagePullPolicy: IfNotPresent
         name: axsis-magix
         env:
