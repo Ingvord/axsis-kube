@@ -60,7 +60,7 @@ data:
     cloud.id: ${ELASTIC_CLOUD_ID}
     cloud.auth: ${ELASTIC_CLOUD_AUTH}
 
-    setup.dashboards.enabled: true
+    setup.dashboards.enabled: false
 
     output.elasticsearch:
       hosts: ['${ELASTICSEARCH_HOST:elasticsearch-logging}:${ELASTICSEARCH_PORT:9200}']
