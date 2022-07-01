@@ -292,3 +292,13 @@ metadata:
   labels:
     k8s-app: metricbeat
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metricbeat-svc
+  namespace: kube-system
+spec:
+  ports:
+  - port: 9201
+  selector:
+    k8s-app: metricbeat
