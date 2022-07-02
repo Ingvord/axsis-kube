@@ -23,7 +23,7 @@ data:
           templates:
             - config:
                 - module: kubernetes
-                  hosts: ["prometheus-custom-kube-state-metrics:8080"]
+                  hosts: ["prometheus-custom-kube-state-metrics.default.svc.cluster.local:8080"]
                   period: 10s
                   add_metadata: true
                   metricsets:
