@@ -11,7 +11,7 @@ server:
   ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write
   ##
   remoteWrite:
-    - url: "http://metricbeat-svc.kube-system.svc.cluster.local:9201/write"
+    - url: "http://metricbeat-svc:9201/write"
 
 pushgateway:
   ## If false, pushgateway will not be installed
