@@ -60,11 +60,14 @@ spec:
   # this replicas value is default
   # modify it according to your case
   replicas: 1
+  selector:
+    matchLabels:
+      app: apm-server
   template:
     metadata:
       labels:
         app: apm-server
-    spec:
+    spec:    
       containers:
       - name: apm-server
         image: docker.elastic.co/apm/apm-server-oss:7.10.2
