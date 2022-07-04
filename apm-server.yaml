@@ -4,7 +4,7 @@ metadata:
   name: apm-server-quickstart
   namespace: default
 spec:
-  version: 7.10.2
+  image: docker.elastic.co/apm/apm-server-oss:7.10.2
   count: 1
   elasticsearchRef:
     name: quickstart
