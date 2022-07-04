@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: apm-server-config
+  namespace: kube-system
   labels:
     k8s-app: apm-server
 data:
@@ -37,9 +38,18 @@ data:
             processor.event: "span"
 ---
 apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: apm-server
+  namespace: kube-system
+  labels:
+    k8s-app: apm-server
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: apm-server
+  namespace: kube-system
   labels:
     app: apm-server
 spec:
@@ -56,6 +66,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apm-server
+  namespace: kube-system
 spec:
   # this replicas value is default
   # modify it according to your case
