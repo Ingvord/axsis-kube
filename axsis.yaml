@@ -27,7 +27,7 @@ spec:
         app: axsis
     spec:
       containers:
-      - image: ingvord/axsis:v1.0.15
+      - image: ingvord/axsis:v1.0.16
         imagePullPolicy: IfNotPresent
         name: axsis
         resources: {}
