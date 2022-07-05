@@ -1,0 +1,7 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: apm-server
+spec:
+  type: ExternalName
+  externalName: helm-apm-server-default-apm-server.kube-system.svc.cluster.local
