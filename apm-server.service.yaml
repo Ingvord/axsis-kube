@@ -6,6 +6,6 @@ spec:
   type: ExternalName
   externalName: helm-apm-server-default-apm-server.kube-system.svc.cluster.local
   ports:
-    - protocol: http
+    - protocol: tcp
       port: 8200
       targetPort: 8200
