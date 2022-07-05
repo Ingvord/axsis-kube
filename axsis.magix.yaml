@@ -26,12 +26,14 @@ spec:
         app: axsis.magix
     spec:
       containers:
-      - image: ingvord/axsis-magix:v1.0.10
+      - image: ingvord/axsis-magix:v1.0.18
         imagePullPolicy: IfNotPresent
         name: axsis-magix
         env:
           - name: MAGIX_HOST
             value: http://magix:8080
+          - name: APM_SERVER_HOST
+            value: http://helm-apm-server-default-apm-server.kube-system.svc.cluster.local:8200
           - name: MODE
             value: simulation
         resources: {}
