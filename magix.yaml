@@ -31,7 +31,7 @@ spec:
         app: magix
     spec:
       containers:
-      - image: ingvord/magix:magix-0.10
+      - image: ingvord/magix:magix-0.11
         imagePullPolicy: IfNotPresent
         name: magix
         resources: {}
