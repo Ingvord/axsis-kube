@@ -9,4 +9,3 @@ spec:
   - port: 8200
     targetPort: 8200
     nodePort: 8200
-selector: {}
