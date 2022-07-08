@@ -26,7 +26,7 @@ spec:
         app: tango-server
     spec:
       containers:
-      - image: ingvord/axsis-virtual-tango-host:AxsisTangoServer-0.10
+      - image: ingvord/axsis-virtual-tango-host:AxsisTangoServer-0.11
         imagePullPolicy: IfNotPresent
         name: axsis-virtual-tango-host
         env:
@@ -34,6 +34,8 @@ spec:
             value: localhost:32407
           - name: TANGO_HOST
             value: localhost:10000
+          - name: APM_SERVER_URL
+            value: http://helm-apm-server-default-apm-server.kube-system.svc.cluster.local:8200
         ports:
         - containerPort: 30100    
         resources: {}
