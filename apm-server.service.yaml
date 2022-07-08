@@ -4,7 +4,7 @@ metadata:
   name: apm-server
 spec:
   type: ExternalName
-  externalName: helm-apm-server-default-apm-server.kube-system.svc
+  externalName: helm-apm-server-default-apm-server.kube-system.svc.cluster.local
   ports:
     - protocol: TCP
       port: 8200
