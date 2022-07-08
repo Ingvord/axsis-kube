@@ -34,8 +34,6 @@ spec:
             value: localhost:32407
           - name: TANGO_HOST
             value: localhost:10000
-          - name: JAVA_TOOL_OPTIONS
-            value: ""
         ports:
         - containerPort: 30100    
         resources: {}
