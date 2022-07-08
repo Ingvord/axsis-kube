@@ -5,4 +5,3 @@ metadata:
 spec:
   type: ExternalName
   externalName: helm-apm-server-default-apm-server.kube-system.svc.cluster.local
-selector: {}
