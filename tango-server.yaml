@@ -35,7 +35,7 @@ spec:
           - name: TANGO_HOST
             value: localhost:10000
           - name: JAVA_TOOL_OPTIONS
-            value: |
+            value: >
               -javaagent:/usr/local/tomcat/elastic-apm-agent-1.32.0.jar 
               -Delastic.apm.service_name=magix 
               -Delastic.apm.server_urls=http://helm-apm-server-default-apm-server.kube-system.svc.cluster.local:8200 
