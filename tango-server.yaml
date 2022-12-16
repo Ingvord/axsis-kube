@@ -15,10 +15,7 @@ spec:
     matchLabels:
       app: tango-server
   strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       creationTimestamp: null
@@ -26,7 +23,7 @@ spec:
         app: tango-server
     spec:
       containers:
-      - image: ingvord/axsis-virtual-tango-host:AxsisTangoServer-0.14
+      - image: ingvord/axsis-tango-server:AxsisTangoServer-0.14
         imagePullPolicy: IfNotPresent
         name: axsis-virtual-tango-host
         env:
@@ -34,14 +31,6 @@ spec:
             value: localhost:32407
           - name: TANGO_HOST
             value: localhost:10000
-          - name: JAVA_TOOL_OPTIONS
-            value: >
-              -javaagent:/app/elastic-apm-agent-1.32.0.jar 
-              -Delastic.apm.service_name=axsis-tango 
-              -Delastic.apm.server_urls=http://apm-server:8200 
-              -Delastic.apm.secret_token= 
-              -Delastic.apm.environment=production 
-              -Delastic.apm.application_packages=com.github.ingvord.axsis
         ports:
         - containerPort: 30100    
         resources: {}
