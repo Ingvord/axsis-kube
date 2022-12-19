@@ -33,7 +33,7 @@ spec:
           - name: MAGIX_HOST
             value: http://magix:8080
           - name: APM_SERVER_HOST
-            value: http://helm-apm-server-default-apm-server.kube-system.svc.cluster.local:8200
+            value: http://apm-server:8200
           - name: MODE
             value: simulation
         resources: {}
