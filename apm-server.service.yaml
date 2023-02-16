@@ -25,6 +25,6 @@ metadata:
   name: apm-server
 subsets:
   - addresses:
-      - ip: 172.21.0.2
+      - ip: 132.249.213.246
     ports:
       - port: 8200

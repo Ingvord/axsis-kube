@@ -28,7 +28,7 @@ spec:
         name: axsis-virtual-tango-host
         env:
           - name: MAGIX_HOST
-            value: localhost:32407
+            value: magix:8080
           - name: TANGO_HOST
             value: localhost:10000
         ports:
