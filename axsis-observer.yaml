@@ -31,7 +31,7 @@ spec:
           name: axsis-observer
           env:
             - name: MAGIX_HOST
-              value: http://magix:8080
+              value: magix:8080
             - name: APM_SERVER_HOST
               value: http://apm-server:8200
           resources: {}
